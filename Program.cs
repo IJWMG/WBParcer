@@ -11,9 +11,12 @@ namespace WBParcer
 
             string itemName;
             StreamReader reader = new StreamReader(path);
-            while (!String.IsNullOrEmpty((itemName = reader.ReadLine())?.Trim()))
+            while ((itemName = reader.ReadLine()) != null)
             {
-                productsByKeys.Add(itemName, forRequestsYouMake.GetResult(itemName));
+                if (!String.IsNullOrEmpty((itemName)?.Trim()))
+                {
+                    productsByKeys.Add(itemName, forRequestsYouMake.GetResult(itemName));
+                }
             }
             ExcelGenetator genetator = new ExcelGenetator();
             genetator.Generate(productsByKeys);
